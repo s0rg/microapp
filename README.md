@@ -3,11 +3,8 @@ minimal dockerized application
 
 # workflow
 
-* build binary
-`make build`
-
-* build docker
-`make docker`
+* build binary: `make build`
+* build docker: `make docker`
 
 # environment
 
@@ -17,8 +14,8 @@ minimal dockerized application
 
 application serves two endpoints:
 
-`/` - returns string with application host and user names
-`/health` - always returns HTTP 204
+* `/` - returns string with application host and user names
+* `/health` - always returns HTTP 204
 
 it can be used in docker-compose environments as load-balancing
 testing utility.
