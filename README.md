@@ -1,0 +1,2 @@
+# microapp
+minimal dockerized application
