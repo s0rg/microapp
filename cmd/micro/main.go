@@ -8,6 +8,11 @@ import (
 	"os/user"
 )
 
+var (
+	GitHash   string
+	BuildDate string
+)
+
 func main() {
 	host, err := os.Hostname()
 	if err != nil {
@@ -19,7 +24,7 @@ func main() {
 		log.Fatal("user:", err)
 	}
 
-	banner := "microapp from: " + host + " user: " + user.Username
+	banner := "microapp from: " + host
 
 	http.HandleFunc("/", func(w http.ResponseWriter, _ *http.Request) {
 		_, _ = io.WriteString(w, banner)
@@ -34,7 +39,9 @@ func main() {
 		addr = "0.0.0.0:8080"
 	}
 
-	log.Printf("%s serving on %s", banner, addr)
+	log.Println("microapp git:", GitHash, "build at:", BuildDate)
+	log.Println("user:", user.Username)
+	log.Println("serving on:", addr)
 
 	if err = http.ListenAndServe(addr, nil); err != nil {
 		log.Fatal(err)

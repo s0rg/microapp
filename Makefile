@@ -1,6 +1,10 @@
+GIT_HASH=`git rev-parse --short HEAD`
+BUILD_DATE=`date +%FT%T%z`
+
 BIN=bin/micro.app
 SRC=./cmd/micro
-LDFLAGS=-w -s
+
+LDFLAGS=-w -s -X main.GitHash=${GIT_HASH} -X main.BuildDate=${BUILD_DATE}
 
 export CGO_ENABLED=0
 export GOOS=linux

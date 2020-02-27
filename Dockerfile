@@ -1,6 +1,6 @@
 FROM golang:1.14-alpine AS builder
 
-RUN apk add --update --no-cache make ca-certificates tzdata \
+RUN apk add --update --no-cache make git ca-certificates tzdata \
  && adduser -D -H -g "" -s "" app
 
 ADD . /go/src/github/s0rg/microapp
