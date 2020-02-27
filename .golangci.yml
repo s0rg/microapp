@@ -1,0 +1,14 @@
+linters-settings:
+  gocritic:
+    enabled-tags:
+      - performance
+  maligned:
+    suggest-new: true
+
+linters:
+  enable-all: true
+  disable:
+    - gochecknoglobals
+    - gomnd
+    - scopelint
+  fast: false
