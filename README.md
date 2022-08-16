@@ -4,8 +4,8 @@ minimal dockerized application example with 2-staged dockerfiles (scratch and di
 # workflow
 
 * build stand-alone binary: `make build`
-* build docker with `scratch`-base image: `make docker-scratch`
-* build docker with `distroless`-base image: `make docker-distroless`
+* build docker with `scratch`-based image: `make docker-scratch`
+* build docker with `distroless`-based image: `make docker-distroless`
 
 # environment config
 
@@ -18,7 +18,7 @@ minimal dockerized application example with 2-staged dockerfiles (scratch and di
 application serves two endpoints:
 
 * `/` - returns string with application host and user names
-* `/health` - returns HTTP 204 if app serves well.
+* `/health` - returns HTTP 204 if app serves well
 
 it can be used in docker-compose environments as load-balancing
 testing utility.
