@@ -1,0 +1,26 @@
+FROM golang:1.19-buster AS builder
+
+ADD . /go/src/github/s0rg/microapp
+WORKDIR /go/src/github/s0rg/microapp
+
+RUN make build
+
+FROM gcr.io/distroless/static
+
+ARG BUILD_DATE
+ARG BUILD_REV
+
+ENV ADDR 0.0.0.0:8080
+
+COPY --from=builder /go/src/github/s0rg/microapp/bin/micro.app /micro.app
+
+USER nonroot:nonroot
+
+ENTRYPOINT ["/micro.app"]
+
+LABEL org.opencontainers.image.created="${BUILD_DATE}" \
+      org.opencontainers.image.revision="${BUILD_REV}" \
+      org.opencontainers.image.title="micro.app" \
+      org.opencontainers.image.authors="s0rg" \
+      org.opencontainers.image.vendor="s0rg" \
+      org.opencontainers.image.source="https://github.com/s0rg/microapp"

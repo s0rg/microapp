@@ -19,7 +19,7 @@ func main() {
 		log.Fatal("hostname:", err)
 	}
 
-	user, err := user.Current()
+	usr, err := user.Current()
 	if err != nil {
 		log.Fatal("user:", err)
 	}
@@ -40,7 +40,7 @@ func main() {
 	}
 
 	log.Println("microapp git:", GitHash, "build at:", BuildDate)
-	log.Println("user:", user.Username)
+	log.Println("user:", usr.Username)
 	log.Println("serving on:", addr)
 
 	if err = http.ListenAndServe(addr, nil); err != nil {

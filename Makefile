@@ -1,3 +1,4 @@
+SHELL=/bin/bash
 GIT_HASH=`git rev-parse --short HEAD`
 BUILD_DATE=`date +%FT%T%z`
 
@@ -12,17 +13,30 @@ export GOARCH=amd64
 
 .PHONY: clean build
 
-build: vet
-	go build -ldflags "${LDFLAGS}" -o "${BIN}" "${SRC}"
-
-docker: vet
-	docker build -t s0rg/microapp:latest --no-cache=true .
-
 vet:
 	go vet ./...
 
 lint: vet
 	golangci-lint run
+
+build: vet
+	go build -ldflags "${LDFLAGS}" -o "${BIN}" "${SRC}"
+
+docker-scratch: lint
+	docker build \
+		--no-cache=true \
+		--build-arg BUILD_REV="${GIT_HASH}" \
+		--build-arg BUILD_DATE="${BUILD_DATE}" \
+		-t s0rg/microapp-scratch:latest \
+		-f Dockerfile.scratch .
+
+docker-distroless: lint
+	docker build \
+		--no-cache=true \
+		--build-arg BUILD_REV=${GIT_HASH} \
+		--build-arg BUILD_DATE=${BUILD_DATE} \
+		-t s0rg/microapp-distroless:latest \
+		-f Dockerfile.distroless .
 
 clean:
 	[ -f "${BIN}" ] && rm "${BIN}"

@@ -1,27 +1,27 @@
 # microapp
-minimal dockerized application
+minimal dockerized application example with 2-staged dockerfiles (scratch and distroless versions)
 
 # workflow
 
-* build binary: `make build`
-* build docker: `make docker`
+* build stand-alone binary: `make build`
+* build docker with `scratch`-base image: `make docker-scratch`
+* build docker with `distroless`-base image: `make docker-distroless`
 
-# environment
+# environment config
 
-`ADDR` - address for the server to listen on
+`ADDR` - address for the server to listen on (default is 0.0.0.0:8080)
 
 # usage
+
+`docker run s0rg/microapp-scratch` or `docker run s0rg/microapp-distroless`
 
 application serves two endpoints:
 
 * `/` - returns string with application host and user names
-* `/health` - always returns HTTP 204
+* `/health` - returns HTTP 204 if app serves well.
 
 it can be used in docker-compose environments as load-balancing
 testing utility.
-
-health-endpoint is (mostly) for consul health-checks,
-for service-discovery.
 
 # license
 
